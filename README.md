@@ -7,14 +7,14 @@
 
 ### Szükséges modulok telepítése
 ```cmd
-$ cd backend
-$ pip install pipenv
-$ pipenv shell
-$ pipenv install
+cd backend
+pip install pipenv
+pipenv shell
+pipenv install
 ```
 ### A szerver indítása
 ```cmd
-$ python manage.py runserver
+python manage.py runserver
 ```
 ---
 ## Frontend
@@ -23,10 +23,10 @@ $ python manage.py runserver
 
 ### Szükséges modulok telepítése
 ```cmd
-$ cd frontend
-$ npm install
+cd frontend
+npm install
 ```
 ### Frontend indítása
 ```cmd
-$ npm start
+npm start
 ```
