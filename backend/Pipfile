@@ -13,6 +13,7 @@ django-allauth = "*"
 pyyaml = "*"
 uritemplate = "*"
 drf-yasg = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"

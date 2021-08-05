@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import axios from "axios";
+import { useState } from 'react';
 
 export function LoginPage(props) {
     const [user, setUser] = useState('');
@@ -13,9 +14,16 @@ export function LoginPage(props) {
 
     function login(e) {
         e.preventDefault();
-        console.log(user)
-        console.log(pass)
-        console.log()
+        axios.post('http://127.0.0.1/dj-rest-auth/login', {
+            username: user,
+            password: pass
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     return(
