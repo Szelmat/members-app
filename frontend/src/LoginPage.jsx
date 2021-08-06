@@ -14,7 +14,7 @@ export function LoginPage(props) {
 
     function login(e) {
         e.preventDefault();
-        axios.post('http://127.0.0.1/dj-rest-auth/login', {
+        axios.post('http://127.0.0.1:8000/dj-rest-auth/login/', {
             username: user,
             password: pass
           })
