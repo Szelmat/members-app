@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 import { LoginPage } from "./LoginPage";
-import { Members } from "./Members";
+import { Members } from "./Members"
 import "./App.css";
 
 function App() {
@@ -17,8 +16,7 @@ function App() {
   }
 
   const [incorrect, setIncorrect] = useState(false);
-
-  const [cookies, setCookie] = useCookies(["access_token", "refresh_token"]);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   function login(e) {
     e.preventDefault();
@@ -31,17 +29,15 @@ function App() {
         withCredentials: true
       })
       .then(function (response) {
-        console.log(response);
-        // axios.get("http://127.0.0.1:8000/api/").then(function (response) {
-        //   console.log(response);
-        // });
+        setLoggedIn(true);
       })
       .catch(function (error) {
         setIncorrect(true);
       });
   }
 
-  return (
+  if(!loggedIn) {
+    return (
     <LoginPage
       onSubmit={login}
       user={user}
@@ -50,8 +46,12 @@ function App() {
       passChange={passChange}
       incorrect={incorrect}
     />
-    // <Members />
   );
+} else {
+  return (
+    <Members />
+  );
+}
 }
 
 export default App;
