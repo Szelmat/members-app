@@ -1,44 +1,40 @@
-import axios from "axios";
-import { useState } from 'react';
-
 export function LoginPage(props) {
-    const [user, setUser] = useState('');
-    function userChange(event) {
-        setUser(event.target.value);
-    }
+  return (
+    <form onSubmit={props.onSubmit} id="loginForm">
+      <h1 className="login">Bejelentkezés</h1>
 
-    const [pass, setPass] = useState('');
-    function passChange(event) {
-        setPass(event.target.value);
-    }
+      <div id="loginInputs">
+        <div className="login" id="username">
+          <label htmlFor="usr">Felhasználónév:</label>
+          <input
+            name="usr"
+            id="usr"
+            value={props.user}
+            onChange={props.userChange}
+          />
+        </div>
 
-    function login(e) {
-        e.preventDefault();
-        axios.post('http://127.0.0.1:8000/dj-rest-auth/login/', {
-            username: user,
-            password: pass
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
+        <div className="login" id="password">
+          <label htmlFor="pwd">Jelszó:</label>
+          <input
+            type="password"
+            name="pwd"
+            id="pwd"
+            value={props.pass}
+            onChange={props.passChange}
+          />
+        </div>
+      </div>
 
-    return(
-        <form onSubmit={login}> 
-            <div id="username">
-                <label htmlFor="usr">Felhasználónév:</label>
-                <input name="usr" id="usr" value={user} onChange={userChange} />
-            </div>
+      <div className="login">
+        <button type="submit">Bejelentkezés</button>
+      </div>
 
-            <div id="password">
-                <label htmlFor="pwd">Jelszó:</label>
-                <input type="password" name="pwd" id="pwd" value={pass} onChange={passChange} />
-            </div>
-
-            <button type="submit">Bejelentkezés</button>
-        </form>
-    )
+      {props.incorrect && (
+        <p className="loginErrorMessage login">
+          Hibás felhasználónév vagy jelszó! Kérjük, próbálja újra!
+        </p>
+      )}
+    </form>
+  );
 }
