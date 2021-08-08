@@ -1,3 +1,5 @@
+import { FiLogIn } from "react-icons/fi";
+
 export function LoginPage(props) {
   return (
     <form onSubmit={props.onSubmit} id="loginForm">
@@ -27,7 +29,7 @@ export function LoginPage(props) {
       </div>
 
       <div className="login">
-        <button type="submit">Bejelentkezés</button>
+        <button type="submit"><FiLogIn/> Bejelentkezés</button>
       </div>
 
       {props.incorrect && (

@@ -14,6 +14,10 @@ code {
     monospace;
 }
 
+h2 {
+  margin-top: 5px;
+}
+
 #loginForm {
   margin-top: 30vh;
 }
@@ -64,10 +68,18 @@ code {
   list-style-type: none;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+}
+
+#membersTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
 }
 
 .memberCard, #newMember {
-  height: 170px;
+  height: 165px;
   width: 220px; 
   margin: 30px;
   padding: 10px;
@@ -82,10 +94,33 @@ code {
   font-weight: bold;
   color: white;
   background-color: olivedrab;
+  border: 2px solid white;
+  border-radius: 10px;
 }
 
 #newMember:hover {
   color: olivedrab;
   background-color: white;
   border-color: olivedrab;
+}
+
+.memberButtons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.deleteMember, .editMember {
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+  color: olivedrab;
+  cursor: pointer;
+}
+
+.deleteMember:hover, .editMember:hover {
+  color: palegreen;
+}
+
+#newMemberIcon {
+  font-size: 30px;
 }
