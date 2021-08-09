@@ -1,10 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import {
-  IoPersonAddOutline,
-  IoPersonRemoveOutline,
-  IoPencil,
-} from "react-icons/io5";
+import { IoPersonAddOutline } from "react-icons/io5";
+import { MemberCard } from "./MemberCard";
 import { InputMemberCard } from "./InputMemberCard";
 
 export function Members(props) {
@@ -59,10 +56,11 @@ export function Members(props) {
 
   function newMember() {
     setAddingMember(true);
+    setEditMemberId(0);
   }
 
   function saveNewMember() {
-    if (newMemberName !== "" && newMemberClub !== "" && newMemberBirth !== "") {
+    if (newMemberName && newMemberClub && newMemberBirth) {
       axios
         .post("http://127.0.0.1:8000/api/", {
           name: newMemberName,
@@ -104,6 +102,8 @@ export function Members(props) {
 
   function editMember(id) {
     // Megkeressük az épp szerkesztendő tagot és bekérjük az adatait
+    setAddingMember(false);
+    setEditMemberError(false);
     setEditMemberId(id);
     const currMember = members.find((member) => member.id === id);
     setEditMemberName(currMember.name);
@@ -113,11 +113,7 @@ export function Members(props) {
 
   // A szerkesztett tag módosított adatainak elmentése
   function saveEditMember() {
-    if (
-      editMemberName !== "" &&
-      editMemberClub !== "" &&
-      editMemberBirth !== ""
-    ) {
+    if (editMemberName && editMemberClub && editMemberBirth) {
       axios
         .patch("http://127.0.0.1:8000/api/" + editMemberId + "/", {
           name: editMemberName,
@@ -142,29 +138,15 @@ export function Members(props) {
         {members.map((member) => {
           if (editMemberId !== member.id) {
             return (
-              <li key={member.id}>
-                <div className="memberCard">
-                  <div className="memberButtons">
-                    <button
-                      className="editMember"
-                      onClick={() => editMember(member.id)}
-                    >
-                      <IoPencil />
-                    </button>
-
-                    <button
-                      className="deleteMember"
-                      onClick={() => deleteMember(member.id)}
-                    >
-                      <IoPersonRemoveOutline />
-                    </button>
-                  </div>
-                  <span className="memberId">{member.id}</span>
-                  <h2>{member.name}</h2>
-                  <h4>{member.clubName}</h4>
-                  <h4>{member.birth.replaceAll("-", ".") + "."}</h4>
-                </div>
-              </li>
+              <MemberCard
+                key={member.id}
+                editOnClick={() => editMember(member.id)}
+                deleteOnClick={() => deleteMember(member.id)}
+                id={member.id}
+                name={member.name}
+                clubName={member.clubName}
+                birth={member.birth.replaceAll("-", ".") + "."}
+              />
             );
           } else {
             return (
@@ -183,27 +165,28 @@ export function Members(props) {
                 clubOnChange={(e) => setEditMemberClub(e.target.value)}
                 saveOnClick={() => saveEditMember()}
                 error={editMemberError}
-              />              
+              />
             );
           }
         })}
         {addingMember && (
           <InputMemberCard
-                key={editMemberId}
-                deleteOnClick={() => {
-                  setAddingMember(false);
-                  clearNewMemberFields();
-                }}
-                editOnClick={() => {}}
-                name={newMemberName}
-                nameOnChange={(e) => setNewMemberName(e.target.value)}
-                selectedDate={new Date(newMemberBirth)}
-                dateOnChange={(date) => setNewMemberBirth(date)}
-                club={newMemberClub}
-                clubOnChange={(e) => setNewMemberClub(e.target.value)}
-                saveOnClick={() => saveNewMember()}
-                error={newMemberError}
-              />
+            key={editMemberId}
+            deleteOnClick={() => {
+              setAddingMember(false);
+              clearNewMemberFields();
+              setNewMemberError(false);
+            }}
+            editOnClick={() => {}}
+            name={newMemberName}
+            nameOnChange={(e) => setNewMemberName(e.target.value)}
+            selectedDate={new Date(newMemberBirth)}
+            dateOnChange={(date) => setNewMemberBirth(date)}
+            club={newMemberClub}
+            clubOnChange={(e) => setNewMemberClub(e.target.value)}
+            saveOnClick={() => saveNewMember()}
+            error={newMemberError}
+          />
         )}
 
         {!addingMember && (
