@@ -22,6 +22,11 @@ button {
   cursor: pointer;
 }
 
+strong {
+  margin-top: 20px;
+  color: red;
+}
+
 #loginForm {
   margin-top: 30vh;
 }
