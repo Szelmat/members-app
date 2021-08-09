@@ -18,25 +18,25 @@ export function Members(props) {
   // Éppen új embert adunk-e hozzá
   const [addingMember, setAddingMember] = useState(false);
 
-  // Az új tag hozzáadáshoz szükséges mezők
+  // Az új tag hozzáadásához szükséges mezők
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberBirth, setNewMemberBirth] = useState(new Date());
   const [newMemberClub, setNewMemberClub] = useState("");
 
-  // Másodpercentként beolvassuk az új értékeket a listába
+  // 5 másodpercentként beolvassuk az új értékeket a listába
   useEffect(() => {
     // A kezdeti érték beolvasása betöltéskor
     fetchMembers();
 
     setInterval(() => {
       fetchMembers();
-    }, 1000);
+    }, 5000);
   }, []);
 
   // A beolvasó interval törlése, ha eltűnik a komponens
   useEffect(() => {
     return () => {
-      setInterval(() => {
+      clearInterval(() => {
         fetchMembers();
       }, 1000);
     };
@@ -50,10 +50,44 @@ export function Members(props) {
 
   function deleteMember(id) {
     axios.delete("http://127.0.0.1:8000/api/" + id);
+    fetchMembers();
   }
 
   function newMember() {
     setAddingMember(true);
+  }
+
+  function saveMember() {
+    console.log(formatDate(newMemberBirth));
+    axios
+    .post("http://127.0.0.1:8000/api/", {
+      name: newMemberName,
+      birth: formatDate(newMemberBirth),
+      clubName: newMemberClub,
+    })
+    .catch(function (error) {
+      // Itt mindig 500-as hibakód lesz a válaszérték,
+      // de az adatok mentésre kerültek
+      console.log(error);
+    });
+
+    fetchMembers();
+    setAddingMember(false);
+    clearNewMemberFields();
+  }
+
+  // A dátum adat megformázása küldésre alkalmas formára
+  function formatDate(date) {
+    let datestr = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
+    return datestr;
+  }
+
+  // Kiürítjük az új tag hozzáadásához szükséges mezőket,
+  // hogy legközelebb 'tiszta lappal induljunk'
+  function clearNewMemberFields() {
+    setNewMemberName("");
+    setNewMemberBirth(new Date());
+    setNewMemberClub("");
   }
 
   return (
@@ -91,13 +125,20 @@ export function Members(props) {
                 <IoPencil />
               </button>
 
-              <button className="deleteMember">
+              <button
+                className="deleteMember"
+                onClick={() => {
+                  setAddingMember(false);
+                  clearNewMemberFields();
+                }}
+              >
                 <IoPersonRemoveOutline />
               </button>
             </div>
             <input
               value={newMemberName}
               onChange={(e) => setNewMemberName(e.target.value)}
+              placeholder="Tag neve"
             />
             <DatePicker
               selected={newMemberBirth}
@@ -109,18 +150,15 @@ export function Members(props) {
               locale="hu"
               showMonthDropdown
               showYearDropdown
+              disabledKeyboardNavigation
             />
             <input
               value={newMemberClub}
               onChange={(e) => setNewMemberClub(e.target.value)}
+              placeholder="Egyesület neve"
             />
             <button
-              onClick={() => {
-                setAddingMember(false);
-                setNewMemberName("");
-                setNewMemberBirth(new Date());
-                setNewMemberClub("");
-              }}
+              onClick={() => saveMember()}
               className="saveMember"
             >
               Mentés
@@ -128,7 +166,7 @@ export function Members(props) {
           </div>
         )}
 
-        <li>
+        { !addingMember && (<li>
           <button id="newMember" onClick={newMember}>
             <span id="newMemberIcon">
               <IoPersonAddOutline />
@@ -137,6 +175,7 @@ export function Members(props) {
             Új Tag
           </button>
         </li>
+        )}
       </ul>
     </div>
   );
