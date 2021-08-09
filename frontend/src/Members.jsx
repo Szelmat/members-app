@@ -78,7 +78,7 @@ export function Members(props) {
 
   // A dátum adat megformázása küldésre alkalmas formára
   function formatDate(date) {
-    let datestr = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay();
+    let datestr = date.getFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate();
     return datestr;
   }
 
