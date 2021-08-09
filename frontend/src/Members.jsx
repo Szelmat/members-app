@@ -7,6 +7,9 @@ import { InputMemberCard } from "./InputMemberCard";
 export function Members(props) {
   const [members, setMembers] = useState([]);
 
+  // Az API-al történő kommunikáció jelzése
+  const [loading, setLoading] = useState(false);
+
   // Az új tag hozzáadásához szükséges mezők
   const [newMemberName, setNewMemberName] = useState("");
   const [newMemberBirth, setNewMemberBirth] = useState(new Date());
@@ -47,9 +50,11 @@ export function Members(props) {
     const { data } = await axios("http://127.0.0.1:8000/api/");
     const fetchedMembers = data;
     setMembers(fetchedMembers);
+    setLoading(false);
   };
 
   function deleteMember(id) {
+    setLoading(true);
     axios.delete("http://127.0.0.1:8000/api/" + id);
     fetchMembers();
   }
@@ -61,6 +66,7 @@ export function Members(props) {
 
   function saveNewMember() {
     if (newMemberName && newMemberClub && newMemberBirth) {
+      setLoading(true);
       axios
         .post("http://127.0.0.1:8000/api/", {
           name: newMemberName,
@@ -114,6 +120,7 @@ export function Members(props) {
   // A szerkesztett tag módosított adatainak elmentése
   function saveEditMember() {
     if (editMemberName && editMemberClub && editMemberBirth) {
+      setLoading(true);
       axios
         .patch("http://127.0.0.1:8000/api/" + editMemberId + "/", {
           name: editMemberName,
@@ -201,6 +208,7 @@ export function Members(props) {
           </li>
         )}
       </ul>
+      {loading && <img className="loading" alt="loading" src={process.env.PUBLIC_URL + '/spinner.gif'} />}
     </div>
   );
 }

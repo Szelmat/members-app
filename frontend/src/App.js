@@ -18,8 +18,12 @@ function App() {
   const [incorrect, setIncorrect] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // Az API-al történő kommunikáció jelzése
+  const [loading, setLoading] = useState(false);
+
   function login(e) {
     e.preventDefault();
+    setLoading(true);
     setIncorrect(false);
     axios
       .post("http://127.0.0.1:8000/dj-rest-auth/login/", {
@@ -29,6 +33,7 @@ function App() {
         withCredentials: true
       })
       .then(function (response) {
+        setLoading(false);
         setLoggedIn(true);
       })
       .catch(function (error) {
@@ -45,6 +50,7 @@ function App() {
       userChange={userChange}
       passChange={passChange}
       incorrect={incorrect}
+      loading={loading}
     />
   );
 } else {

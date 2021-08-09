@@ -31,6 +31,12 @@ strong {
   margin-top: 30vh;
 }
 
+.loading {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .login {
   display: flex;
   flex-basis: 100%;

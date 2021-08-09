@@ -37,6 +37,8 @@ export function LoginPage(props) {
           Hibás felhasználónév vagy jelszó! Kérjük, próbálja újra!
         </p>
       )}
+
+      {props.loading && <img className="loading" alt="loading" src={process.env.PUBLIC_URL + '/spinner.gif'} />}
     </form>
   );
 }
