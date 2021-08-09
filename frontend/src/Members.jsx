@@ -5,7 +5,7 @@ import {
   IoPersonRemoveOutline,
   IoPencil,
 } from "react-icons/io5";
-import { CustomDatePicker } from "./CustomDatePicker";
+import { InputMemberCard } from "./InputMemberCard";
 
 export function Members(props) {
   const [members, setMembers] = useState([]);
@@ -168,84 +168,42 @@ export function Members(props) {
             );
           } else {
             return (
-              <div className="memberCard addMemberCard" key="editMemberId">
-                <div className="memberButtons">
-                  <button className="editMember">
-                    <IoPencil />
-                  </button>
-
-                  <button
-                    className="deleteMember"
-                    onClick={() => {
-                      setAddingMember(false);
-                      clearNewMemberFields();
-                    }}
-                  >
-                    <IoPersonRemoveOutline />
-                  </button>
-                </div>
-                <input
-                  value={editMemberName}
-                  onChange={(e) => setEditMemberName(e.target.value)}
-                  placeholder="Tag neve"
-                />
-                <CustomDatePicker
-                  selected={new Date(editMemberBirth)}
-                  onChange={(date) => setEditMemberBirth(date)}
-                />
-                <input
-                  value={editMemberClub}
-                  onChange={(e) => setEditMemberClub(e.target.value)}
-                  placeholder="Egyesület neve"
-                />
-                <button onClick={() => saveEditMember()} className="saveMember">
-                  Mentés
-                </button>
-                {editMemberError && (
-                  <strong>Kérjük, hogy minden mezőt adjon meg!</strong>
-                )}
-              </div>
+              <InputMemberCard
+                key={editMemberId}
+                deleteOnClick={() => {
+                  deleteMember(editMemberId);
+                  setEditMemberId(0);
+                }}
+                editOnClick={() => {}}
+                name={editMemberName}
+                nameOnChange={(e) => setEditMemberName(e.target.value)}
+                selectedDate={new Date(editMemberBirth)}
+                dateOnChange={(date) => setEditMemberBirth(date)}
+                club={editMemberClub}
+                clubOnChange={(e) => setEditMemberClub(e.target.value)}
+                saveOnClick={() => saveEditMember()}
+                error={editMemberError}
+              />              
             );
           }
         })}
         {addingMember && (
-          <div className="memberCard addMemberCard">
-            <div className="memberButtons">
-              <button className="editMember">
-                <IoPencil />
-              </button>
-
-              <button
-                className="deleteMember"
-                onClick={() => {
+          <InputMemberCard
+                key={editMemberId}
+                deleteOnClick={() => {
                   setAddingMember(false);
                   clearNewMemberFields();
                 }}
-              >
-                <IoPersonRemoveOutline />
-              </button>
-            </div>
-            <input
-              value={newMemberName}
-              onChange={(e) => setNewMemberName(e.target.value)}
-              placeholder="Tag neve"
-            />
-            <CustomDatePicker
-              selected={newMemberBirth}
-              onChange={(date) => setNewMemberBirth(date)}
-            />
-            <input
-              value={newMemberClub}
-              onChange={(e) => setNewMemberClub(e.target.value)}
-              placeholder="Egyesület neve"
-            />
-            <button onClick={() => saveNewMember()} className="saveMember">
-              Mentés
-            </button>
-            {newMemberError && (
-              <strong>Kérjük, hogy minden mezőt adjon meg!</strong>
-            )}
-          </div>
+                editOnClick={() => {}}
+                name={newMemberName}
+                nameOnChange={(e) => setNewMemberName(e.target.value)}
+                selectedDate={new Date(newMemberBirth)}
+                dateOnChange={(date) => setNewMemberBirth(date)}
+                club={newMemberClub}
+                clubOnChange={(e) => setNewMemberClub(e.target.value)}
+                saveOnClick={() => saveNewMember()}
+                error={newMemberError}
+              />
         )}
 
         {!addingMember && (
