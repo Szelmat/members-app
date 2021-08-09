@@ -18,6 +18,10 @@ h2 {
   margin-top: 5px;
 }
 
+button {
+  cursor: pointer;
+}
+
 #loginForm {
   margin-top: 30vh;
 }
@@ -42,7 +46,7 @@ h2 {
   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 
-.login > input:focus {
+input:focus {
   outline: 2px solid olivedrab;
   border: 1px solid olivedrab;
 }
@@ -80,7 +84,7 @@ h2 {
   font-size: 40px;
 }
 
-.memberCard, #newMember {
+.memberCard, #newMember, .addMemberCard {
   height: 165px;
   width: 220px; 
   margin: 30px;
@@ -131,4 +135,34 @@ h2 {
 .memberId {
   color: grey;
   font-size: 10px;
+}
+
+.addMemberCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.addMemberCard input {
+  margin-top: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding-left: 10px;
+  height: 20px;
+  font-size: 15px;
+}
+
+.saveMember {
+  border: 1px solid olivedrab;
+  background-color: olivedrab;
+  color: white;
+  font-size: 17px;
+  border-radius: 10px;
+  height: 50px !important;
+  margin-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.saveMember:hover {
+  background-color: white;
+  color: olivedrab;
 }
