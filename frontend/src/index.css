@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: white;
-  background-color: #333;
+  color: black;
+  background-color: #eee;
 }
 
 code {
@@ -39,6 +39,7 @@ h2 {
   width: 200px;
   border-radius: 5px;
   padding-left: 10px;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 
 .login > input:focus {
@@ -56,6 +57,7 @@ h2 {
   font-weight: bold;
   width: 200px;
   border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .loginErrorMessage {
@@ -85,7 +87,9 @@ h2 {
   padding: 10px;
   text-align: center;
   border: 2px solid white;
+  background-color: white;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #newMember {

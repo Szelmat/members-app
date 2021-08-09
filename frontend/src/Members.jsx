@@ -3,12 +3,16 @@ import { useState, useEffect } from "react";
 import { IoPersonAddOutline, IoPersonRemoveOutline, IoPencil } from "react-icons/io5";
 
 export function Members(props) {
-  const [members] = useState([]);
+  const [members, setMembers] = useState([]);
+
+  const fetchMembers = async () => {
+    const { data } = await axios.get("http://127.0.0.1:8000/api/");
+    const members = data;
+    setMembers(members);
+  };
+
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/api/").then(function (response) {
-      response.data.map((member) => members.push(member));
-      console.log(members);
-    });
+    fetchMembers();
   }, [members]);
 
   return (
