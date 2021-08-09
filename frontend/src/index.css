@@ -149,6 +149,7 @@ input:focus {
   padding-left: 10px;
   height: 20px;
   font-size: 15px;
+  text-align: center;
 }
 
 .saveMember {
@@ -165,4 +166,9 @@ input:focus {
 .saveMember:hover {
   background-color: white;
   color: olivedrab;
+}
+
+.react-datepicker__input-container > input {
+  text-align: center;
+  width: 206px;
 }
