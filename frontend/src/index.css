@@ -98,14 +98,13 @@ h2 {
   font-weight: bold;
   color: white;
   background-color: olivedrab;
-  border: 2px solid white;
+  border: 2px solid olivedrab;
   border-radius: 10px;
 }
 
 #newMember:hover {
-  color: olivedrab;
   background-color: white;
-  border-color: olivedrab;
+  color: olivedrab;
 }
 
 .memberButtons {
@@ -127,4 +126,9 @@ h2 {
 
 #newMemberIcon {
   font-size: 30px;
+}
+
+.memberId {
+  color: grey;
+  font-size: 10px;
 }
